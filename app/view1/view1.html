@@ -1,0 +1,18 @@
+<div ng-hide="connected">
+    <button class="btn" ng-click="connect()">Connect</button>
+</div>
+
+<div ng-show="connected">
+
+    <div>Send message: <input ng-model="inputValue"></div>
+
+    <div>
+        <button class="btn" ng-click="send(inputValue, '/World')">Send</button>
+    </div>
+
+
+    <div ng-repeat="message in messages">
+        {{message.payloadString}}
+    </div>
+
+</div>
