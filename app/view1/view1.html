@@ -1,18 +1,34 @@
 <div ng-hide="connected">
-    <button class="btn" ng-click="connect()">Connect</button>
+    <form>
+        <p>Subscribe to channel: <input ng-model="subscribeChannel"></p>
+
+        <p>
+            <button class="btn" ng-click="connect(subscribeChannel)">Connect</button>
+        </p>
+    </form>
 </div>
 
 <div ng-show="connected">
 
-    <div>Send message: <input ng-model="inputValue"></div>
+    <form>
 
-    <div>
-        <button class="btn" ng-click="send(inputValue, '/World')">Send</button>
-    </div>
+        <p>Send message: <input ng-model="inputValue"></p>
 
+        <p>Send to channel: <input ng-model="inputChannel"></p>
 
-    <div ng-repeat="message in messages">
-        {{message.payloadString}}
-    </div>
+        <p>
+            <button class="btn" ng-click="send(inputValue, inputChannel)">Send</button>
+        </p>
+    </form>
+
+    <table class="table">
+        <tr>
+            <td>
+                <div ng-repeat="message in messages | orderBy:'+':true">
+                    {{message.payloadString}}
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </div>

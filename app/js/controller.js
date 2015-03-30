@@ -4,6 +4,9 @@ angular.module('myApp.controllers', []).controller('ViewController', ['$scope', 
 
     $scope.messages = mqtt.getMessages();
 
+    $scope.subscribeChannel = "World";
+    $scope.inputChannel = "World";
+
     // Create a client instance
     $scope.connected = false;
 
@@ -11,8 +14,8 @@ angular.module('myApp.controllers', []).controller('ViewController', ['$scope', 
         mqtt.send(content, channel);
     };
 
-    $scope.connect = function() {
-        mqtt.connect($scope.onMessageArrived);
+    $scope.connect = function(channel) {
+        mqtt.connect(channel);
         $scope.connected = true;
     };
 

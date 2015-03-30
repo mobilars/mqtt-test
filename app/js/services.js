@@ -13,6 +13,7 @@ myAppServices.service('mqtt', function($rootScope) {
     mqtt.client = new Paho.MQTT.Client("hub.roland.bz", 9001, "webclient");
 
     mqtt.messages = [];
+    mqtt.subscribeChannel = "test";
 
     mqtt.getMessages = function() {
         return mqtt.messages;
@@ -23,7 +24,7 @@ myAppServices.service('mqtt', function($rootScope) {
         mqtt.connected = true;
         // Once a connection has been made, make a subscription and send a message.
         console.log("onConnect");
-        mqtt.client.subscribe("/World/#");
+        mqtt.client.subscribe(mqtt.subscribeChannel);
         console.log("onConnect sub");
         var message = new Paho.MQTT.Message("Hello");
         message.destinationName = "/World";
@@ -55,7 +56,8 @@ myAppServices.service('mqtt', function($rootScope) {
     mqtt.client.onMessageArrived = mqtt.onMessageArrived;
     // connect the client
 
-    mqtt.connect = function (fn) {
+    mqtt.connect = function (channel) {
+        mqtt.subscribeChannel = channel;
         $rootScope.connected = true;
         mqtt.client.connect({onSuccess: mqtt.onConnect});
     };
